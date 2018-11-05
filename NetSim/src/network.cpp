@@ -7,6 +7,17 @@
 
 void Network::resize(const size_t& newSize)
 {
+	if(size() > n)
+	{
+		for(size_t i(size()-1); i<n; ++i)
+		{
+			auto erasedNode = links.equal_range(i);
+			for(auto I = eraseNode.first; I != links.end(); ++I)
+			{
+				links[I].erase();
+			}
+		}
+	}
 	values.resize(newSize);
 	RNG.normal(values);
 }
@@ -49,7 +60,7 @@ size_t Network::random_connect(const double& mean_deg)
 	links.clear();
 	size_t counter(0);
 	
-	std::vector<int> poissonDegrees(size());
+	/*std::vector<int> poissonDegrees(size());
 	RNG.poisson(poissonDegrees, mean_deg);
 	
 	std::vector<size_t> toBeLinkedNodes(0);
@@ -76,6 +87,30 @@ size_t Network::random_connect(const double& mean_deg)
 				}			
 		} 
 	}	
+	return counter;*/
+	
+	for(size_t i(0); i < size(); ++i)
+	{
+		int rn(RNG.poisson(mean_deg));
+		while(rn >= size())
+		{
+			rn = RNG.poisson(mean_deg);
+		}
+		
+		if(degree(i) < rn)
+		{
+			int numberLinks(rn - degree(i));
+			while(numberLinks > 0)
+			{
+				size_t m = size_t(RNG.uniform_double(0.0; size());
+				if(add_link(i, m))
+				{
+					++counter;
+					--numberLinks;
+				}
+			}
+		}
+	}
 	return counter;
 }
 
