@@ -5,7 +5,7 @@
 #include <iostream>
 
 
-void Network::resize(const size_t& &n)
+void Network::resize(const size_t &n)
 {
 	if(size() > n)
 	{
@@ -13,9 +13,9 @@ void Network::resize(const size_t& &n)
 		{
 			links.erase(i);
 			auto erasedNode = links.equal_range(i);
-			for(auto I = eraseNode.first; I != links.end(); ++I)
+			for(auto I = erasedNode.first; I != links.end(); ++I)
 			{
-				links.erase(links.find(I.second));
+				links.erase(links.find(I->second));
 			}
 			links.erase(i);
 		}
@@ -38,7 +38,7 @@ bool Network::add_link(const size_t& a, const size_t& b)
 		{
 			for(size_t i(0); i < degree(a); ++i)
 			{
-				if(i == b)
+				if(neighbors_a[i] == b)
 				{
 					bIsContain = true;
 				}
@@ -92,9 +92,39 @@ size_t Network::random_connect(const double& mean_deg)
 	}	
 	return counter;*/
 	
+	/*std::vector<int> poissonDegrees(size());
+	RNG.poisson(poissonDegrees, mean_deg);
+	
+	std::vector<size_t> possibleNodes(0);
+	for(size_t i(0); i < size(); ++i)
+	{ possibleNodes.push_back(i); }*/
+	
 	for(size_t i(0); i < size(); ++i)
 	{
-		int rn(RNG.poisson(mean_deg));
+		/*while(poissonDegrees[i] >= size())
+		{
+			poissonDegrees[i] = RNG.poisson(mean_deg);
+		}
+		
+		if(degree(i) < poissonDegrees[i])
+		{
+			RNG.shuffle(possibleNodes);
+			int numberLinks(poissonDegrees[i] - degree(i));
+			for(size_t j(0); j < possibleNodes.size(); ++j)
+			{
+				if(add_link(i, possibleNodes[j]))
+				{
+					++counter;
+					--numberLinks;
+				}
+				if(numberLinks == 0)
+				{
+					break;
+				}
+			}
+		}*/
+		
+		size_t rn = RNG.poisson(mean_deg);
 		while(rn >= size())
 		{
 			rn = RNG.poisson(mean_deg);
@@ -103,9 +133,9 @@ size_t Network::random_connect(const double& mean_deg)
 		if(degree(i) < rn)
 		{
 			int numberLinks(rn - degree(i));
-			while(numberLinks > 0)
+			while(numberLinks >= 0)
 			{
-				size_t m = size_t(RNG.uniform_double(0.0; size());
+				size_t m = size_t(RNG.uniform_double(0.0, size()));
 				if(add_link(i, m))
 				{
 					++counter;
@@ -173,7 +203,7 @@ std::vector<double> Network::sorted_values() const
 std::vector<size_t> Network::neighbors(const size_t& node) const
 {
 	std::vector<size_t> _neighbors(0);
-	if (node<size())
+	if (node < size())
 	{
 		auto neigborsPairs = links.equal_range(node);
 		for (auto I = neigborsPairs.first; I != neigborsPairs.second; ++I)

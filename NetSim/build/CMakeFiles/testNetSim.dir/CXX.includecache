@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/cimeyer/Desktop/NetSim/src/network.cpp
+network.h
+/home/cimeyer/Desktop/NetSim/src/network.h
+random.h
+/home/cimeyer/Desktop/NetSim/src/random.h
+algorithm
+-
+iostream
+-
+
+/home/cimeyer/Desktop/NetSim/src/network.h
+map
+-
+vector
+-
+
+/home/cimeyer/Desktop/NetSim/src/random.cpp
+random.h
+/home/cimeyer/Desktop/NetSim/src/random.h
+
+/home/cimeyer/Desktop/NetSim/src/random.h
+random
+-
+vector
+-
+algorithm
+-
+
+/home/cimeyer/Desktop/NetSim/src/test_main.cpp
+gtest/gtest.h
+-
+algorithm
+-
+network.h
+/home/cimeyer/Desktop/NetSim/src/network.h
+random.h
+/home/cimeyer/Desktop/NetSim/src/random.h
+
