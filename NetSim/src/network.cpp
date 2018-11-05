@@ -129,11 +129,12 @@ size_t Network::random_connect(const double& mean_deg)
 		{
 			rn = RNG.poisson(mean_deg);
 		}
-		
-		if(degree(i) < rn)
-		{
-			int numberLinks(rn - degree(i));
-			while(numberLinks >= 0)
+		//std::cout << rn << std::endl;
+		/*if(degree(i) < rn)
+		{*/
+			//int numberLinks(rn - degree(i));
+			int numberLinks(rn);
+			while(numberLinks > 0)
 			{
 				size_t m = size_t(RNG.uniform_double(0.0, size()));
 				if(add_link(i, m))
@@ -142,7 +143,7 @@ size_t Network::random_connect(const double& mean_deg)
 					--numberLinks;
 				}
 			}
-		}
+		//}
 	}
 	return counter;
 }
