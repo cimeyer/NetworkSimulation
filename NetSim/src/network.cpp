@@ -5,20 +5,23 @@
 #include <iostream>
 
 
-void Network::resize(const size_t& newSize)
+void Network::resize(const size_t& &n)
 {
 	if(size() > n)
 	{
 		for(size_t i(size()-1); i<n; ++i)
 		{
+			links.erase(i);
 			auto erasedNode = links.equal_range(i);
 			for(auto I = eraseNode.first; I != links.end(); ++I)
 			{
-				links[I].erase();
+				links.erase(links.find(I.second));
 			}
+			links.erase(i);
 		}
 	}
-	values.resize(newSize);
+	values.clear();
+	values.resize(n);
 	RNG.normal(values);
 }
 
