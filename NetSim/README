@@ -15,4 +15,6 @@ if(degree(i) < rn), ou degree(i) est le nombre de lien qu'a déjà le noeud i et
 le nombre de liens qu'on veut pour ce noeud. Suite à cela, osi la condition est
 satisfaite, on ajoute rn - degree(i) liens au noeud i.)
 
-
+Dans la fonction resize(), si la nouvelle taille est plus petite que l'ancienne, les liens
+des noeuds qui sont effacés sont supprimés de la multimap links, ce qui évite que des 
+liens soient pris en compte alors que le noeud auquel ils sont attachés n'existe plus.
