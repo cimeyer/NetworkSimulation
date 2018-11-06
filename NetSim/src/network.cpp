@@ -63,87 +63,24 @@ size_t Network::random_connect(const double& mean_deg)
 	links.clear();
 	size_t counter(0);
 	
-	/*std::vector<int> poissonDegrees(size());
-	RNG.poisson(poissonDegrees, mean_deg);
-	
-	std::vector<size_t> toBeLinkedNodes(0);
-	for(size_t i(0); i < size(); ++i)
-	{ toBeLinkedNodes.push_back(i); }
-	
 	for(size_t i(0); i < size(); ++i)
 	{
-		RNG.shuffle(toBeLinkedNodes);
-		
-		for(size_t j(0); j < toBeLinkedNodes.size(); ++j)
-		{
-			if(degree(i) < poissonDegrees[i])
-			{
-				if(degree(toBeLinkedNodes[j]) < poissonDegrees[toBeLinkedNodes[j]])
-				{
-					if(add_link(i, toBeLinkedNodes[j]))
-					{
-						counter += 2;
-					}
-				}
-			} else { 
-				break;
-				}			
-		} 
-	}	
-	return counter;*/
-	
-	/*std::vector<int> poissonDegrees(size());
-	RNG.poisson(poissonDegrees, mean_deg);
-	
-	std::vector<size_t> possibleNodes(0);
-	for(size_t i(0); i < size(); ++i)
-	{ possibleNodes.push_back(i); }*/
-	
-	for(size_t i(0); i < size(); ++i)
-	{
-		/*while(poissonDegrees[i] >= size())
-		{
-			poissonDegrees[i] = RNG.poisson(mean_deg);
-		}
-		
-		if(degree(i) < poissonDegrees[i])
-		{
-			RNG.shuffle(possibleNodes);
-			int numberLinks(poissonDegrees[i] - degree(i));
-			for(size_t j(0); j < possibleNodes.size(); ++j)
-			{
-				if(add_link(i, possibleNodes[j]))
-				{
-					++counter;
-					--numberLinks;
-				}
-				if(numberLinks == 0)
-				{
-					break;
-				}
-			}
-		}*/
-		
 		size_t rn = RNG.poisson(mean_deg);
 		while(rn >= size())
 		{
 			rn = RNG.poisson(mean_deg);
 		}
-		//std::cout << rn << std::endl;
-		/*if(degree(i) < rn)
-		{*/
-			//int numberLinks(rn - degree(i));
-			int numberLinks(rn);
-			while(numberLinks > 0)
+		
+		
+		while(rn > 0)
+		{
+			size_t m = size_t(RNG.uniform_double(0.0, size()));
+			if(add_link(i, m))
 			{
-				size_t m = size_t(RNG.uniform_double(0.0, size()));
-				if(add_link(i, m))
-				{
-					++counter;
-					--numberLinks;
-				}
+				++counter;
+				--rn;
 			}
-		//}
+		}
 	}
 	return counter;
 }

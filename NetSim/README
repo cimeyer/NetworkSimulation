@@ -1,0 +1,18 @@
+Ce programme sert à manipuler des noeuds associés à des valeurs (double). Des liens
+peuvent être créés et détruits entre les noeuds.
+
+simulation.cpp fait directement "marcher" le programme, sans que l'utilisateur
+aie besoin d'entrer quelque choses. 
+
+
+Dans la fonction random_connect, j'ai choisi la version où le nombre de liens
+à créer pour chaque noeud (en plus des liens déjà existants) est le nombre 
+choisi par rapport à la distribution de poisson.
+
+(Si j'avais choisi la version où on prend en compte les noeuds déjà créer précédemment
+quand on veut créer les liens du noeud i, il aura juste fallu ajouter une condition
+if(degree(i) < rn), ou degree(i) est le nombre de lien qu'a déjà le noeud i et rn est
+le nombre de liens qu'on veut pour ce noeud. Suite à cela, osi la condition est
+satisfaite, on ajoute rn - degree(i) liens au noeud i.)
+
+
