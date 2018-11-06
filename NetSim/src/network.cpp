@@ -63,24 +63,28 @@ size_t Network::random_connect(const double& mean_deg)
 	links.clear();
 	size_t counter(0);
 	
-	for(size_t i(0); i < size(); ++i)
+	if(mean_deg >= 0.0)
 	{
-		size_t rn = RNG.poisson(mean_deg);
-		while(rn >= size())
+		for(size_t i(0); i < size(); ++i)
 		{
-			rn = RNG.poisson(mean_deg);
-		}
-		
-		
-		while(rn > 0)
-		{
-			size_t m = size_t(RNG.uniform_double(0.0, size()));
-			if(add_link(i, m))
+			size_t rn = RNG.poisson(mean_deg);
+			while(rn >= size())
 			{
-				++counter;
-				--rn;
+				rn = RNG.poisson(mean_deg);
+			}
+		
+			while(rn > 0)
+			{
+				size_t m = size_t(RNG.uniform_double(0.0, size()));
+				if(add_link(i, m))
+				{
+					++counter;
+					--rn;
+				}
 			}
 		}
+	} else {
+		std::cout << "mean_deg must be >= 0" << std::endl;
 	}
 	return counter;
 }
@@ -122,7 +126,12 @@ size_t Network::degree(const size_t &_n) const
 
 double Network::value(const size_t &_n) const
 {
-	return values[_n];
+	if(_n < size())
+	{
+		return values[_n];
+	}
+	std::cout << "the node " << _n << " does not exist" << std::endl;
+	return 0.0;
 }
 
 //----------------------------------------------------------------------
